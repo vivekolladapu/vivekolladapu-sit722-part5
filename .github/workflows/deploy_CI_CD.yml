@@ -1,13 +1,14 @@
 name: Deploy library microservice to kubernetes
 
 on:
-
-  push: 
+  push:
     branches:
-      - main
-
-
-  workflow_dispatch: 
+      - master
+    paths:
+      - book_catalog/**
+      - inventory_management/**
+      - scripts/terraform/**
+  workflow_dispatch: # Allows triggering manually
 
 permissions:
   id-token: write
