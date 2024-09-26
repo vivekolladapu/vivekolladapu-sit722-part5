@@ -1,7 +1,7 @@
 resource "azurerm_kubernetes_cluster" "cluster" {
   name                = var.app_name
   location            = var.location
-  resource_group_name = azurerm_resource_group.vivek26.name
+  resource_group_name = azurerm_resource_group.vivek28.name
   dns_prefix          = var.app_name
   kubernetes_version  = var.kubernetes_version
 
