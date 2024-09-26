@@ -16,7 +16,7 @@ services:
     restart: "no"
 
   inventory_management:
-    image: $CONTAINER_REGISTRY.azurecr.io/book_catalog:$VERSION
+    image: $CONTAINER_REGISTRY.azurecr.io/inventory_management:$VERSION
     build: 
       context: ./inventory_management
       dockerfile: Dockerfile
