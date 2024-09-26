@@ -1,4 +1,4 @@
-resource "azurerm_resource_group" "vivek26" {
+resource "azurerm_resource_group" "vivek28" {
   name     = var.app_name
   location = var.location
 }
