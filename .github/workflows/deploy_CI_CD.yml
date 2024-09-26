@@ -22,13 +22,15 @@ jobs:
       VERSION: ${{ github.sha }}
 
     steps:
+      
       - name: checkout code
         uses: actions/checkout@v3
 
-      - name: setup azure login
-        uses: azure/login@v2
+      
+      - name: Azure Login
+        uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }} 
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
           
       - name: Setup terraform
         uses: hashicorp/setup-terraform@v2
@@ -54,15 +56,15 @@ jobs:
         run: |
           CONTAINER_REGISTRY=$(terraform-bin output -raw registry_name)
           echo "CONTAINER_REGISTRY=$CONTAINER_REGISTRY" >> $GITHUB_ENV
-
-
-
+          
       - name: Login to Azure Container Registry
         run: |
-          echo ${{ secrets.CLIENT_SECRET }} | docker login ${{ env.CONTAINER_REGISTRY }}.azurecr.io -u ${{ secrets.CLIENT_ID }} --password-stdin
+          echo ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }} | docker login ${{ env.CONTAINER_REGISTRY }}.azurecr.io -u ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }} --password-stdin
 
 
-      - name: Make sh files executable
+
+       
+      - name: Set permissions for build, push, deploy scripts
         working-directory: ./scripts/
         run: |
           chmod +x build-image.sh
